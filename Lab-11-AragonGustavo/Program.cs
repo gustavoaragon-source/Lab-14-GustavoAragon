@@ -12,15 +12,15 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<Lab_11_AragonGustavo.Infrastructure.Persistence.ApplicationDbContext>();
+    db.Database.EnsureCreated();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseAuthorization();
-app.MapControllers();
-
-app.Run();
-
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
